@@ -1,0 +1,11 @@
+[user]
+	signingkey = 9B4156E44842302B
+	name = Mirai SHINJO
+	email = oss@mshinjo.com
+[commit]
+	gpgSign = true
+	email = oss@mshinjo.com
+[gpg]
+	program = /usr/bin/gpg
+[core]
+	editor = emacs -nw
