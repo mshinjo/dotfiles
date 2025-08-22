@@ -1,0 +1,29 @@
+name: gitleaks
+on:
+  push: {}
+  workflow_dispatch:
+jobs:
+  scan:
+    # Technically, it's too late if this workflow
+    # finds sensitive information.
+    # But it's better to be alerted than not know.
+    name: gitleaks (entire git history)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install gitleaks
+        run: |
+          set -e
+          VERSION="8.24.3"
+          TARBALL="gitleaks_${VERSION}_linux_x64.tar.gz"
+          BASEURL="https://github.com/gitleaks/gitleaks/releases/download"
+          curl -sSL "${BASEURL}/v${VERSION}/${TARBALL}" | tar -xz
+          sudo mv gitleaks /usr/local/bin/
+          gitleaks version
+      - name: Run gitleaks (full history)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gitleaks git --verbose --redact --log-opts="--all" .
