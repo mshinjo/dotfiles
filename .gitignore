@@ -1,0 +1,12 @@
+# .emacs.d/ ignore patterns
+*~
+.#*
+*.elc
+eln-cache/
+auto-save-list/
+custom.el
+ido.last*
+session.*
+url/
+elpa/
+transient/
