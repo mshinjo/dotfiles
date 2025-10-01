@@ -58,9 +58,6 @@
             (setq indent-tabs-mode nil)
             (setq tab-width 4)))
 
-;; Org-mode
-(add-hook 'org-mode-hook #'visual-line-mode)
-
 ;; Ido-mode
 (ido-mode 1)
 (ido-everywhere 1)
