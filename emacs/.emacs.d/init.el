@@ -46,7 +46,10 @@
             (setq c-basic-offset 8)))
 (add-hook 'c-mode-common-hook
           (lambda ()
-            (setq c-doc-comment-style 'javadoc)))
+            (setq comment-style 'extra-line
+                  c-block-comment-prefix " * "
+                  comment-start "/* "
+                  comment-end   " */")))
 
 (add-hook 'python-mode-hook
           (lambda ()
