@@ -11,7 +11,7 @@
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
-(dolist (package '(modus-themes avy expand-region magit pdf-tools solarized-theme vterm))
+(dolist (package '(modus-themes avy expand-region magit pdf-tools solarized-theme vterm corfu))
   (unless (package-installed-p package)
     (package-install package)))
 
@@ -72,6 +72,13 @@
 ;; avy config
 (global-set-key (kbd "C-;") 'avy-goto-char-2)
 (setq avy-all-windows 'all-frames)
+
+;; Corfu
+(setq corfu-auto t
+      corfu-auto-prefix 2
+      corfu-auto-delay 0.1
+      corfu-quit-no-match 'separator)
+(global-corfu-mode)
 
 ;; expand-region keybindings
 (global-set-key (kbd "C-'") 'er/expand-region)
