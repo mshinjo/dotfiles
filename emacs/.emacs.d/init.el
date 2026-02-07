@@ -80,6 +80,14 @@
       corfu-quit-no-match 'separator)
 (global-corfu-mode)
 
+;; Elgot
+(add-hook 'prog-mode-hook 'eglot-ensure)
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+	       '((c-mode c++-mode)
+		 . ("clangd"
+		    "--fallback-style=none"))))
+
 ;; expand-region keybindings
 (global-set-key (kbd "C-'") 'er/expand-region)
 (global-set-key (kbd "M--") 'er/contract-region)
