@@ -100,6 +100,9 @@
 ;; native compilation
 (setq native-comp-deferred-compilation t)
 
+;; trailing-whitespace
+(setq-default show-trailing-whitespace t)
+
 ;; highlight symbol at point
 (defface symbol-highlight-face '((t :background "#C75B73"))
   "Custom face for highlighting symbols.")
