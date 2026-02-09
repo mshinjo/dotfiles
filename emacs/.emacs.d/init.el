@@ -11,7 +11,7 @@
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
-(dolist (package '(modus-themes avy expand-region magit pdf-tools solarized-theme vterm corfu))
+(dolist (package '(modus-themes avy expand-region magit pdf-tools solarized-theme vterm corfu vertico orderless marginalia))
   (unless (package-installed-p package)
     (package-install package)))
 
@@ -61,10 +61,29 @@
             (setq indent-tabs-mode nil)
             (setq tab-width 4)))
 
-;; Ido-mode
-(ido-mode 1)
-(ido-everywhere 1)
-(setq ido-enable-flex-matching t)
+;; vertico
+(vertico-mode t)
+(setq vertico-cycle t)
+(with-eval-after-load 'vertico
+  (require 'vertico-directory)
+  (define-key vertico-map (kbd "RET")
+    (lambda ()
+      (interactive)
+      (if (and (< vertico--index 0)
+               (string-suffix-p "/" (minibuffer-contents-no-properties)))
+          (vertico-next)
+        (vertico-directory-enter))))
+  (define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
+  (define-key vertico-map (kbd "M-DEL") #'vertico-directory-delete-word))
+(add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+
+;; marginalia
+(marginalia-mode t)
+
+;; orderless
+(setq completion-styles '(orderless basic)
+      completion-category-defaults nil
+      completion-category-overrides '((file (styles partial-completion))))
 
 ;; electric pair
 (electric-pair-mode t)
