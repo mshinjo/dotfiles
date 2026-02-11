@@ -11,7 +11,7 @@
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
-(dolist (package '(modus-themes avy expand-region magit pdf-tools solarized-theme vterm corfu vertico orderless marginalia))
+(dolist (package '(modus-themes avy expand-region magit pdf-tools solarized-theme vterm corfu vertico orderless marginalia ace-window))
   (unless (package-installed-p package)
     (package-install package)))
 
@@ -91,6 +91,10 @@
 ;; avy config
 (global-set-key (kbd "C-;") 'avy-goto-char-2)
 (setq avy-all-windows 'all-frames)
+
+;; ace-window
+(global-set-key (kbd "M-o") 'ace-window)
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
 ;; Corfu
 (setq corfu-auto t
