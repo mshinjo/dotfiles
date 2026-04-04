@@ -22,6 +22,7 @@
 ;; (scroll-bar-mode -1)
 (setq column-number-mode t)
 (load-theme 'modus-vivendi-tinted t)
+(pixel-scroll-precision-mode t)
 
 ;; font (GUI only)
 (when (display-graphic-p)
