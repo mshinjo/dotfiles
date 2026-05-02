@@ -11,7 +11,7 @@
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
-(dolist (package '(modus-themes avy expand-region magit pdf-tools solarized-theme vterm corfu vertico orderless marginalia ace-window))
+(dolist (package '(modus-themes avy expand-region magit pdf-tools solarized-theme vterm corfu vertico orderless marginalia ace-window diff-hl))
   (unless (package-installed-p package)
     (package-install package)))
 
@@ -61,6 +61,14 @@
           (lambda ()
             (setq indent-tabs-mode nil)
             (setq tab-width 4)))
+
+;; diff-hl
+(require 'diff-hl)
+(global-diff-hl-mode t)
+(diff-hl-flydiff-mode t)
+(diff-hl-margin-mode t)
+(with-eval-after-load 'magit
+  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
 ;; vertico
 (vertico-mode t)
