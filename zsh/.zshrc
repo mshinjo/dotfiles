@@ -1,11 +1,30 @@
-# --- theme (Powerlevel10k) (start) ---
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-# --- theme (Powerlevel10k) (end) ---
+# --- prompt (start) ---
+autoload -Uz colors vcs_info
+colors
+
+setopt prompt_subst
+
+# Git branch + dirty marker
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' formats ' %F{magenta} %b%f'
+zstyle ':vcs_info:git:*' actionformats ' %F{magenta} %b|%a%f'
+
+precmd() {
+  vcs_info
+
+  local git_dirty=""
+  if git rev-parse --is-inside-work-tree &>/dev/null; then
+    if [[ -n "$(git status --porcelain 2>/dev/null)" ]]; then
+      git_dirty=" %F{yellow}●%f"
+    else
+      git_dirty=" %F{green}✓%f"
+    fi
+  fi
+
+  PROMPT="%F{cyan}%n%f@%F{blue}%m%f %F{green}%~%f${vcs_info_msg_0_}${git_dirty}
+%F{red}%#%f "
+}
+# --- prompt (end) ---
 
 # --- paths & editor (start) ---
 export PATH="$HOME/bin:$PATH"
